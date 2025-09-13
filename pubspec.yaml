@@ -31,8 +31,8 @@ dev_dependencies:
   flutter_lints: ^5.0.0
 
 flutter_native_splash:
-  color: "#ffffff" # cor de fundo da splash
-  image: assets/logo.png # sua logo (coloque em assets)
+  color: "#ffffff"
+  image: assets/logo.png
 
 flutter:
   uses-material-design: true
