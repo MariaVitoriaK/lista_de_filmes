@@ -1,6 +1,6 @@
+// lib/screens/map_screen.dart
 import 'package:flutter/material.dart';
-import 'package:google_maps/google_maps.dart' as gmaps;
-import 'dart:ui' as ui;
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -10,31 +10,26 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  late gmaps.GMap _map;
+  late GoogleMapController mapController;
 
-  @override
-  void initState() {
-    super.initState();
-    // Registra a view para o mapa
-    // ignore: undefined_prefixed_name
-    ui.platformViewRegistry.registerViewFactory('mapElement', (int viewId) {
-      final elem = gmaps.GMap(
-        gmaps.document.createElement('div'),
-        gmaps.MapOptions()
-          ..center =
-              gmaps.LatLng(-28.232667, -52.381083) // UPF
-          ..zoom = 15,
-      );
-      _map = elem;
-      return elem.div!;
-    });
+  // UPF coordenadas
+  final LatLng _center = const LatLng(-28.232667, -52.381083);
+
+  void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Mapa")),
-      body: const HtmlElementView(viewType: 'mapElement'),
+      appBar: AppBar(
+        title: const Text("Mapa - UPF"),
+        backgroundColor: Colors.green[700],
+      ),
+      body: GoogleMap(
+        onMapCreated: _onMapCreated,
+        initialCameraPosition: CameraPosition(target: _center, zoom: 15.0),
+      ),
     );
   }
 }
