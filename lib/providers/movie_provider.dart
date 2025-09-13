@@ -1,53 +1,88 @@
-// lib/providers/movie_provider.dart
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+
 import '../models/movie.dart';
 
 class MovieProvider extends ChangeNotifier {
   List<Movie> _movies = [];
-
   List<Movie> get movies => _movies;
 
-  /// 🔹 Carregar filmes do SharedPreferences
+  final String baseUrl =
+      'https://68c5a3e7a712aaca2b6949cd.mockapi.io/api/v1/movies';
+
+  /// Carrega todos os filmes do MockAPI
   Future<void> loadMovies() async {
-    final prefs = await SharedPreferences.getInstance();
-    final moviesJson = prefs.getString('movies');
-    if (moviesJson != null) {
-      final List list = jsonDecode(moviesJson);
-      _movies = list.map((e) => Movie.fromJson(e)).toList();
-      notifyListeners();
+    try {
+      final response = await http.get(Uri.parse(baseUrl));
+      if (response.statusCode == 200) {
+        final List list = jsonDecode(response.body);
+        _movies = list.map((e) => Movie.fromJson(e)).toList();
+        notifyListeners();
+      } else {
+        debugPrint('Erro ao carregar filmes: ${response.statusCode}');
+      }
+    } catch (e) {
+      debugPrint('Erro ao carregar filmes: $e');
     }
   }
 
-  /// 🔹 Adicionar novo filme
+  /// Adiciona um novo filme
   Future<void> addMovie(Movie movie) async {
-    _movies.add(movie);
-    await _save();
-    notifyListeners();
-  }
+    try {
+      final response = await http.post(
+        Uri.parse(baseUrl),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(movie.toJson()),
+      );
 
-  /// 🔹 Atualizar um filme existente
-  Future<void> updateMovie(Movie movie) async {
-    final index = _movies.indexWhere((m) => m.id == movie.id);
-    if (index != -1) {
-      _movies[index] = movie;
-      await _save();
-      notifyListeners();
+      if (response.statusCode == 201) {
+        final newMovie = Movie.fromJson(jsonDecode(response.body));
+        _movies.add(newMovie);
+        notifyListeners();
+      } else {
+        debugPrint('Erro ao adicionar filme: ${response.statusCode}');
+      }
+    } catch (e) {
+      debugPrint('Erro ao adicionar filme: $e');
     }
   }
 
-  /// 🔹 Remover filme pelo id
-  Future<void> deleteMovie(String id) async {
-    _movies.removeWhere((m) => m.id == id);
-    await _save();
-    notifyListeners();
+  /// Atualiza um filme existente (incluindo favoritos ou quero assistir)
+  Future<void> updateMovie(Movie movie) async {
+    try {
+      final response = await http.put(
+        Uri.parse('$baseUrl/${movie.id}'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(movie.toJson()),
+      );
+
+      if (response.statusCode == 200) {
+        final index = _movies.indexWhere((m) => m.id == movie.id);
+        if (index != -1) {
+          _movies[index] = movie;
+          notifyListeners();
+        }
+      } else {
+        debugPrint('Erro ao atualizar filme: ${response.statusCode}');
+      }
+    } catch (e) {
+      debugPrint('Erro ao atualizar filme: $e');
+    }
   }
 
-  /// 🔹 Salvar lista de filmes no SharedPreferences
-  Future<void> _save() async {
-    final prefs = await SharedPreferences.getInstance();
-    final list = _movies.map((m) => m.toJson()).toList();
-    await prefs.setString('movies', jsonEncode(list));
+  /// Remove um filme
+  Future<void> deleteMovie(String id) async {
+    try {
+      final response = await http.delete(Uri.parse('$baseUrl/$id'));
+      if (response.statusCode == 200) {
+        _movies.removeWhere((m) => m.id == id);
+        notifyListeners();
+      } else {
+        debugPrint('Erro ao deletar filme: ${response.statusCode}');
+      }
+    } catch (e) {
+      debugPrint('Erro ao deletar filme: $e');
+    }
   }
 }

@@ -44,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                 id: DateTime.now().millisecondsSinceEpoch.toString(),
                 title: titleController.text,
                 description: descController.text,
-                year: int.tryParse(yearController.text) ?? 0,
+                year: yearController.text,
               );
               Provider.of<MovieProvider>(
                 context,

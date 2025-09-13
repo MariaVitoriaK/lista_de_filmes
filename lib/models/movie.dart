@@ -1,9 +1,9 @@
 // lib/models/movie.dart
 class Movie {
-  String id;
+  final String id;
   String title;
   String description;
-  int year;
+  String year;
   bool isFavorite;
   bool isWantToWatch;
 
