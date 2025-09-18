@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/movie_provider.dart';
 import '../models/movie.dart';
+import '../widgets/app_drawer.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -64,23 +65,9 @@ class HomeScreen extends StatelessWidget {
     final movieProvider = Provider.of<MovieProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Meus Filmes"),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () => Navigator.pushNamed(context, '/settings'),
-          ),
-          IconButton(
-            icon: const Icon(Icons.info),
-            onPressed: () => Navigator.pushNamed(context, '/about'),
-          ),
-          IconButton(
-            icon: const Icon(Icons.map),
-            onPressed: () => Navigator.pushNamed(context, '/map'),
-          ),
-        ],
-      ),
+      appBar: AppBar(title: const Text("MovieLists")),
+      drawer: const AppDrawer(), // << aqui entra o menu
+
       body: ListView.builder(
         itemCount: movieProvider.movies.length,
         itemBuilder: (ctx, i) {

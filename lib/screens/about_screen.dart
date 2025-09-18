@@ -1,5 +1,6 @@
 // lib/screens/about_screen.dart
 import 'package:flutter/material.dart';
+import '../widgets/app_drawer.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
@@ -8,6 +9,7 @@ class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Sobre")),
+      drawer: const AppDrawer(),
       body: const Padding(
         padding: EdgeInsets.all(16),
         child: Column(

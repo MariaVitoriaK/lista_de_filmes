@@ -25,7 +25,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       name: _nameController.text,
       email: _emailController.text,
       password: _passwordController.text,
-      avatar: "https://i.pravatar.cc/150", // avatar gerado aleatoriamente
+      avatarUrl: "https://i.pravatar.cc/150", // avatar gerado aleatoriamente
     );
 
     final success = await auth.register(newUser);

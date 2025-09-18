@@ -60,4 +60,22 @@ class AuthProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  // Atualizar avatar do usuário
+  Future<void> updateAvatar(String newAvatarUrl) async {
+    if (_currentUser == null) return;
+
+    // atualiza o objeto em memória
+    _currentUser = _currentUser!.copyWith(avatarUrl: newAvatarUrl);
+
+    final prefs = await SharedPreferences.getInstance();
+    final usersJson = prefs.getString('users') ?? '{}';
+    final usersMap = jsonDecode(usersJson) as Map<String, dynamic>;
+
+    // atualiza no banco local
+    usersMap[_currentUser!.email] = _currentUser!.toJson();
+    await prefs.setString('users', jsonEncode(usersMap));
+
+    notifyListeners();
+  }
 }

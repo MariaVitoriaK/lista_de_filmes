@@ -1,38 +1,48 @@
-// lib/models/user.dart
 class User {
-  final String? id; // null se ainda não foi criado
-  String name;
-  String email;
-  String password; // texto simples para estudo
-  String avatar;
+  final String id;
+  final String name;
+  final String email;
+  final String password;
+  final String? avatarUrl;
 
   User({
-    this.id,
+    required this.id,
     required this.name,
     required this.email,
     required this.password,
-    required this.avatar,
+    this.avatarUrl = "https://via.placeholder.com/150",
   });
 
-  // Converte de Map/JSON para objeto User
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-      id: json['id']?.toString(),
-      name: json['name'] ?? '',
-      email: json['email'] ?? '',
-      password: json['password'] ?? '',
-      avatar: json['avatar'] ?? '',
-    );
-  }
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'name': name,
+    'email': email,
+    'password': password,
+    'avatarUrl': avatarUrl,
+  };
 
-  // Converte objeto User em Map/JSON
-  Map<String, dynamic> toJson() {
-    return {
-      if (id != null) 'id': id,
-      'name': name,
-      'email': email,
-      'password': password,
-      'avatar': avatar,
-    };
+  factory User.fromJson(Map<String, dynamic> json) => User(
+    id: json['id'],
+    name: json['name'],
+    email: json['email'],
+    password: json['password'],
+    avatarUrl: json['avatarUrl'] ?? "https://via.placeholder.com/150",
+  );
+
+  // Aqui entra o copyWith
+  User copyWith({
+    String? id,
+    String? name,
+    String? email,
+    String? password,
+    String? avatarUrl,
+  }) {
+    return User(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      password: password ?? this.password,
+      avatarUrl: avatarUrl ?? this.avatarUrl,
+    );
   }
 }
