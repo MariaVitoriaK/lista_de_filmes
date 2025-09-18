@@ -16,16 +16,16 @@ class AboutScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "📚 Desenvolvedores:",
+              "📚 Desenvolvedor:",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),
             Text(
-              "👩 Vitória - Matrícula: 12345 - Curso: Ciência da Computação",
+              "👩 Maria Vitória Kuhn - Matrícula: 197960 - Curso: Análise e Desenvolvimento de Sistemas",
             ),
             SizedBox(height: 20),
             Text(
-              "💡 Projeto feito para a disciplina de Desenvolvimento Mobile.",
+              "💡 Projeto feito para a disciplina de Desenvolvimento Mobile III.",
             ),
           ],
         ),

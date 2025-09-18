@@ -10,6 +10,8 @@ class HomeScreen extends StatelessWidget {
 
   void _addMovie(BuildContext context) {
     final titleController = TextEditingController();
+    final dirController = TextEditingController();
+    final genreController = TextEditingController();
     final descController = TextEditingController();
     final yearController = TextEditingController();
 
@@ -44,6 +46,8 @@ class HomeScreen extends StatelessWidget {
               final newMovie = Movie(
                 id: DateTime.now().millisecondsSinceEpoch.toString(),
                 title: titleController.text,
+                director: dirController.text,
+                genres: genreController.text,
                 description: descController.text,
                 year: yearController.text,
               );
