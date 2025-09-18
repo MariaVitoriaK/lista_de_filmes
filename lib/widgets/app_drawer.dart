@@ -20,14 +20,14 @@ class AppDrawer extends StatelessWidget {
             leading: const Icon(Icons.movie),
             title: const Text('Filmes'),
             onTap: () {
-              Navigator.pushReplacementNamed(context, '/movies');
+              Navigator.pushReplacementNamed(context, '/home');
             },
           ),
           ListTile(
             leading: const Icon(Icons.favorite),
-            title: const Text('Favoritos'),
+            title: const Text('Minha Área'),
             onTap: () {
-              Navigator.pushReplacementNamed(context, '/favorites');
+              Navigator.pushReplacementNamed(context, '/list');
             },
           ),
           ListTile(

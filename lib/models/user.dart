@@ -10,7 +10,8 @@ class User {
     required this.name,
     required this.email,
     required this.password,
-    this.avatarUrl = "https://via.placeholder.com/150",
+    this.avatarUrl =
+        "https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png",
   });
 
   Map<String, dynamic> toJson() => {
@@ -26,7 +27,9 @@ class User {
     name: json['name'],
     email: json['email'],
     password: json['password'],
-    avatarUrl: json['avatarUrl'] ?? "https://via.placeholder.com/150",
+    avatarUrl:
+        json['avatarUrl'] ??
+        "https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png",
   );
 
   // Aqui entra o copyWith

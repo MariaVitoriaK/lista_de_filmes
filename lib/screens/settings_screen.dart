@@ -42,7 +42,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               CircleAvatar(
                 radius: 40,
                 backgroundImage: NetworkImage(
-                  user.avatarUrl ?? "https://via.placeholder.com/150",
+                  user.avatarUrl ??
+                      "https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png",
                 ),
               ),
               const SizedBox(height: 10),
@@ -71,11 +72,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
               spacing: 8,
               children:
                   [
-                    Colors.blue,
-                    Colors.red,
-                    Colors.green,
-                    Colors.orange,
-                    Colors.purple,
+                    const Color.fromARGB(255, 99, 138, 170),
+                    const Color.fromARGB(255, 129, 68, 64),
+                    const Color.fromARGB(255, 67, 102, 68),
+                    const Color.fromARGB(255, 179, 143, 89),
+                    const Color.fromARGB(255, 150, 106, 158),
                   ].map((color) {
                     return GestureDetector(
                       onTap: () => settings.setPrimaryColor(color),

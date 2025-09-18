@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsProvider extends ChangeNotifier {
-  Color _primaryColor = Colors.blue;
-
+  Color _primaryColor = const Color.fromARGB(255, 68, 121, 165);
+  //Antes estava azul clássico
   Color get primaryColor => _primaryColor;
 
   /// 🔹 Carregar cor salva
