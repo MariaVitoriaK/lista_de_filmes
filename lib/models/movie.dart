@@ -1,9 +1,8 @@
-// lib/models/movie.dart
 class Movie {
   final String id;
   String title;
   String director;
-  String genres;
+  String genres; // vou deixar como string tratada
   String description;
   String year;
   bool isFavorite;
@@ -23,12 +22,14 @@ class Movie {
   });
 
   factory Movie.fromJson(Map<String, dynamic> json) => Movie(
-    id: json['id'],
-    title: json['title'],
-    description: json['description'],
-    director: json['director'],
-    genres: json['genres'],
-    year: json['year'],
+    id: json['id'].toString(),
+    title: json['title'] ?? '',
+    director: json['director'] ?? '',
+    genres: json['genres'] is List
+        ? (json['genres'] as List).join(', ')
+        : (json['genres'] ?? ''),
+    description: json['description'] ?? '',
+    year: json['year']?.toString() ?? '',
     isFavorite: json['isFavorite'] ?? false,
     isWantToWatch: json['isWantToWatch'] ?? false,
     posterUrl: json['posterUrl'] ?? "",

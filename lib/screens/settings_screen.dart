@@ -20,16 +20,43 @@ class _SettingsScreenState extends State<SettingsScreen> {
     super.dispose();
   }
 
+  void _changeAvatar(BuildContext context, AuthProvider auth) {
+    _avatarController.text = auth.currentUser?.avatarUrl ?? "";
+
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text("Mudar foto do perfil"),
+        content: TextField(
+          controller: _avatarController,
+          decoration: const InputDecoration(
+            labelText: "URL da foto de perfil",
+            prefixIcon: Icon(Icons.link),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text("Cancelar"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              auth.updateAvatar(_avatarController.text);
+              Navigator.pop(ctx);
+              setState(() {}); // Atualiza a tela
+            },
+            child: const Text("Salvar"),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthProvider>(context);
     final user = auth.currentUser;
     final settings = Provider.of<SettingsProvider>(context);
-
-    if (user != null) {
-      _avatarController.text = user.avatarUrl ?? "";
-      // Preenche campo com avatar atual
-    }
 
     return Scaffold(
       appBar: AppBar(title: const Text("Configurações")),
@@ -50,23 +77,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
               Text(user.name, style: const TextStyle(fontSize: 18)),
               Text(user.email, style: const TextStyle(color: Colors.grey)),
               const Divider(),
-              TextField(
-                controller: _avatarController,
-                decoration: const InputDecoration(
-                  labelText: "URL da foto de perfil",
-                  prefixIcon: Icon(Icons.link),
-                ),
-              ),
-              const SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {
-                  auth.updateAvatar(_avatarController.text);
-                  setState(() {}); // Atualiza a tela para refletir nova foto
-                },
-                child: const Text("Salvar foto"),
+              ElevatedButton.icon(
+                onPressed: () => _changeAvatar(context, auth),
+                icon: const Icon(Icons.photo_camera),
+                label: const Text("Mudar foto do perfil"),
               ),
               const Divider(),
             ],
+
+            // === Alterar cor primária ===
             const Text("Alterar Cor Primária"),
             Wrap(
               spacing: 8,
@@ -89,6 +108,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     );
                   }).toList(),
             ),
+            const SizedBox(height: 20),
+
+            // === Alternar Tema ===
+            const Text("Tema do Aplicativo"),
+            SwitchListTile(
+              title: Text(settings.isDarkMode ? "Modo Escuro" : "Modo Claro"),
+              value: settings.isDarkMode,
+              onChanged: (val) => settings.toggleTheme(),
+              secondary: Icon(
+                settings.isDarkMode ? Icons.dark_mode : Icons.light_mode,
+              ),
+            ),
+
             const Spacer(),
             ElevatedButton(
               onPressed: () async {

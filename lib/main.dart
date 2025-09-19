@@ -40,9 +40,13 @@ class ListaDeFilmesApp extends StatelessWidget {
               primaryColor: settings.primaryColor,
               colorScheme: ColorScheme.fromSeed(
                 seedColor: settings.primaryColor,
+                brightness: settings.isDarkMode
+                    ? Brightness.dark
+                    : Brightness.light,
               ),
               useMaterial3: true,
             ),
+
             initialRoute: '/login',
             routes: {
               '/login': (ctx) => const LoginScreen(),

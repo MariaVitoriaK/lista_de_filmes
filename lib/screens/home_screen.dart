@@ -14,27 +14,42 @@ class HomeScreen extends StatelessWidget {
     final genreController = TextEditingController();
     final descController = TextEditingController();
     final yearController = TextEditingController();
+    final posterController = TextEditingController();
 
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text("Adicionar Filme"),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              controller: titleController,
-              decoration: const InputDecoration(labelText: "Título"),
-            ),
-            TextField(
-              controller: descController,
-              decoration: const InputDecoration(labelText: "Descrição"),
-            ),
-            TextField(
-              controller: yearController,
-              decoration: const InputDecoration(labelText: "Ano"),
-            ),
-          ],
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: titleController,
+                decoration: const InputDecoration(labelText: "Título"),
+              ),
+              TextField(
+                controller: dirController,
+                decoration: const InputDecoration(labelText: "Diretor"),
+              ),
+              TextField(
+                controller: genreController,
+                decoration: const InputDecoration(labelText: "Gêneros"),
+              ),
+              TextField(
+                controller: descController,
+                decoration: const InputDecoration(labelText: "Descrição"),
+              ),
+              TextField(
+                controller: yearController,
+                decoration: const InputDecoration(labelText: "Ano"),
+              ),
+              TextField(
+                controller: posterController,
+                decoration: const InputDecoration(labelText: "URL do Poster"),
+              ),
+            ],
+          ),
         ),
         actions: [
           TextButton(
@@ -50,6 +65,7 @@ class HomeScreen extends StatelessWidget {
                 genres: genreController.text,
                 description: descController.text,
                 year: yearController.text,
+                posterUrl: posterController.text,
               );
               Provider.of<MovieProvider>(
                 context,
@@ -70,15 +86,29 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text("MovieLists")),
-      drawer: const AppDrawer(), // << aqui entra o menu
+      drawer: const AppDrawer(),
 
       body: ListView.builder(
         itemCount: movieProvider.movies.length,
         itemBuilder: (ctx, i) {
           final movie = movieProvider.movies[i];
           return ListTile(
+            leading: movie.posterUrl.isNotEmpty
+                ? Image.network(
+                    movie.posterUrl,
+                    width: 50,
+                    fit: BoxFit.cover,
+                    errorBuilder: (ctx, error, stack) =>
+                        const Icon(Icons.movie),
+                  )
+                : const Icon(Icons.movie),
             title: Text(movie.title),
-            subtitle: Text("${movie.year} - ${movie.description}"),
+            subtitle: Text(
+              "${movie.year} • ${movie.director}\n${movie.genres}\n${movie.description}",
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+            ),
+            isThreeLine: true,
             trailing: IconButton(
               icon: const Icon(Icons.delete, color: Colors.red),
               onPressed: () => movieProvider.deleteMovie(movie.id),
