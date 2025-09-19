@@ -4,81 +4,12 @@ import 'package:provider/provider.dart';
 import '../providers/movie_provider.dart';
 import '../models/movie.dart';
 import '../widgets/app_drawer.dart';
+import 'add_movie_screen.dart';
+import 'edit_movie_screen.dart';
+import 'delete_movie_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
-  void _addMovie(BuildContext context) {
-    final titleController = TextEditingController();
-    final dirController = TextEditingController();
-    final genreController = TextEditingController();
-    final descController = TextEditingController();
-    final yearController = TextEditingController();
-    final posterController = TextEditingController();
-
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text("Adicionar Filme"),
-        content: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: titleController,
-                decoration: const InputDecoration(labelText: "Título"),
-              ),
-              TextField(
-                controller: dirController,
-                decoration: const InputDecoration(labelText: "Diretor"),
-              ),
-              TextField(
-                controller: genreController,
-                decoration: const InputDecoration(labelText: "Gêneros"),
-              ),
-              TextField(
-                controller: descController,
-                decoration: const InputDecoration(labelText: "Descrição"),
-              ),
-              TextField(
-                controller: yearController,
-                decoration: const InputDecoration(labelText: "Ano"),
-              ),
-              TextField(
-                controller: posterController,
-                decoration: const InputDecoration(labelText: "URL do Poster"),
-              ),
-            ],
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx),
-            child: const Text("Cancelar"),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              final newMovie = Movie(
-                id: DateTime.now().millisecondsSinceEpoch.toString(),
-                title: titleController.text,
-                director: dirController.text,
-                genres: genreController.text,
-                description: descController.text,
-                year: yearController.text,
-                posterUrl: posterController.text,
-              );
-              Provider.of<MovieProvider>(
-                context,
-                listen: false,
-              ).addMovie(newMovie);
-              Navigator.pop(ctx);
-            },
-            child: const Text("Salvar"),
-          ),
-        ],
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +33,7 @@ class HomeScreen extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Poster maior
+                // Poster
                 ClipRRect(
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(12),
@@ -129,7 +60,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                 ),
 
-                // Informações do filme
+                // Informações
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(10),
@@ -161,7 +92,7 @@ class HomeScreen extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                         const SizedBox(height: 8),
-                        // Ícones de ações: favorito, quero assistir, editar
+                        // Ações: favorito, quero assistir, editar, remover
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -188,95 +119,25 @@ class HomeScreen extends StatelessWidget {
                             IconButton(
                               icon: const Icon(Icons.edit, color: Colors.green),
                               onPressed: () {
-                                // Editar filme
-                                final titleController = TextEditingController(
-                                  text: movie.title,
+                                // Navega para a tela de edição passando o movie
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (ctx) =>
+                                        EditMovieScreen(movie: movie),
+                                  ),
                                 );
-                                final dirController = TextEditingController(
-                                  text: movie.director,
-                                );
-                                final genreController = TextEditingController(
-                                  text: movie.genres,
-                                );
-                                final descController = TextEditingController(
-                                  text: movie.description,
-                                );
-                                final yearController = TextEditingController(
-                                  text: movie.year,
-                                );
-                                final posterController = TextEditingController(
-                                  text: movie.posterUrl,
-                                );
-
-                                showDialog(
-                                  context: context,
-                                  builder: (ctx) => AlertDialog(
-                                    title: const Text("Editar Filme"),
-                                    content: SingleChildScrollView(
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          TextField(
-                                            controller: titleController,
-                                            decoration: const InputDecoration(
-                                              labelText: "Título",
-                                            ),
-                                          ),
-                                          TextField(
-                                            controller: dirController,
-                                            decoration: const InputDecoration(
-                                              labelText: "Diretor",
-                                            ),
-                                          ),
-                                          TextField(
-                                            controller: genreController,
-                                            decoration: const InputDecoration(
-                                              labelText: "Gêneros",
-                                            ),
-                                          ),
-                                          TextField(
-                                            controller: descController,
-                                            decoration: const InputDecoration(
-                                              labelText: "Descrição",
-                                            ),
-                                          ),
-                                          TextField(
-                                            controller: yearController,
-                                            decoration: const InputDecoration(
-                                              labelText: "Ano",
-                                            ),
-                                          ),
-                                          TextField(
-                                            controller: posterController,
-                                            decoration: const InputDecoration(
-                                              labelText: "URL do Poster",
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () => Navigator.pop(ctx),
-                                        child: const Text("Cancelar"),
-                                      ),
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          movie.title = titleController.text;
-                                          movie.director = dirController.text;
-                                          movie.genres = genreController.text;
-                                          movie.description =
-                                              descController.text;
-                                          movie.year = yearController.text;
-                                          movie.posterUrl =
-                                              posterController.text;
-
-                                          movieProvider.updateMovie(movie);
-                                          Navigator.pop(ctx);
-                                        },
-                                        child: const Text("Salvar"),
-                                      ),
-                                    ],
+                              },
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.delete, color: Colors.red),
+                              onPressed: () {
+                                // Navega para a tela de deleção passando o movie
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (ctx) =>
+                                        DeleteMovieScreen(movie: movie),
                                   ),
                                 );
                               },
@@ -287,12 +148,6 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-
-                // Botão excluir
-                IconButton(
-                  icon: const Icon(Icons.delete, color: Colors.red),
-                  onPressed: () => movieProvider.deleteMovie(movie.id),
-                ),
               ],
             ),
           );
@@ -300,7 +155,13 @@ class HomeScreen extends StatelessWidget {
       ),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _addMovie(context),
+        onPressed: () {
+          // Navega para a tela de adicionar
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (ctx) => AddMovieScreen()),
+          );
+        },
         child: const Icon(Icons.add),
       ),
     );
