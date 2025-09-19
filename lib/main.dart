@@ -12,6 +12,7 @@ import 'screens/home_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/about_screen.dart';
 import 'screens/map_screen.dart';
+import 'screens/my_area_screen.dart';
 
 void main() {
   runApp(const ListaDeFilmesApp());
@@ -52,6 +53,7 @@ class ListaDeFilmesApp extends StatelessWidget {
               '/login': (ctx) => const LoginScreen(),
               '/register': (ctx) => const RegisterScreen(),
               '/home': (ctx) => const HomeScreen(),
+              '/my-area': (ctx) => const MyAreaScreen(),
               '/settings': (ctx) => const SettingsScreen(),
               '/about': (ctx) => const AboutScreen(),
               '/map': (ctx) => const MapScreen(),

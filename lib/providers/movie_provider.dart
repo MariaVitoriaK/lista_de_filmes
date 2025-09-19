@@ -85,4 +85,24 @@ class MovieProvider extends ChangeNotifier {
       debugPrint('Erro ao deletar filme: $e');
     }
   }
+
+  /// Alterna o favorito
+  Future<void> toggleFavorite(String id) async {
+    final index = _movies.indexWhere((m) => m.id == id);
+    if (index != -1) {
+      _movies[index].isFavorite = !_movies[index].isFavorite;
+      notifyListeners();
+      await updateMovie(_movies[index]);
+    }
+  }
+
+  /// Alterna a lista Quero Assistir
+  Future<void> toggleWantToWatch(String id) async {
+    final index = _movies.indexWhere((m) => m.id == id);
+    if (index != -1) {
+      _movies[index].isWantToWatch = !_movies[index].isWantToWatch;
+      notifyListeners();
+      await updateMovie(_movies[index]);
+    }
+  }
 }

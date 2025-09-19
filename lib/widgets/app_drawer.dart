@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/auth_provider.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthProvider>(context);
+    final user = auth.currentUser;
+
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          DrawerHeader(
+          UserAccountsDrawerHeader(
             decoration: BoxDecoration(color: Theme.of(context).primaryColor),
-            child: const Text(
-              'Menu',
-              style: TextStyle(color: Colors.white, fontSize: 24),
+            accountName: Text(user?.name ?? "Usuário"),
+            accountEmail: Text(user?.email ?? ""),
+            currentAccountPicture: CircleAvatar(
+              backgroundImage: NetworkImage(
+                user?.avatarUrl ??
+                    "https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png",
+              ),
             ),
           ),
           ListTile(
@@ -27,7 +36,7 @@ class AppDrawer extends StatelessWidget {
             leading: const Icon(Icons.favorite),
             title: const Text('Minha Área'),
             onTap: () {
-              Navigator.pushReplacementNamed(context, '/list');
+              Navigator.pushReplacementNamed(context, '/my-area');
             },
           ),
           ListTile(
