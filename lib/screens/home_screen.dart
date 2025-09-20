@@ -92,7 +92,7 @@ class HomeScreen extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                         const SizedBox(height: 8),
-                        // Ações: favorito, quero assistir, editar, remover
+                        // Ações: favorito, quero assistir, editar, remover, info
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -117,9 +117,74 @@ class HomeScreen extends StatelessWidget {
                                   movieProvider.toggleWantToWatch(movie.id),
                             ),
                             IconButton(
+                              icon: const Icon(
+                                Icons.info,
+                                color: Colors.purple,
+                              ),
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (ctx) => AlertDialog(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    title: Text(movie.title),
+                                    content: SingleChildScrollView(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          if (movie.posterUrl.isNotEmpty)
+                                            ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              child: Image.network(
+                                                movie.posterUrl,
+                                                height: 200,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          const SizedBox(height: 10),
+                                          Text(
+                                            "${movie.year} • ${movie.director}",
+                                            style: Theme.of(
+                                              context,
+                                            ).textTheme.bodyMedium,
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Text(
+                                            movie.genres,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall
+                                                ?.copyWith(
+                                                  fontStyle: FontStyle.italic,
+                                                ),
+                                          ),
+                                          const SizedBox(height: 15),
+                                          Text(
+                                            movie.description,
+                                            style: Theme.of(
+                                              context,
+                                            ).textTheme.bodyMedium,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        child: const Text("Fechar"),
+                                        onPressed: () =>
+                                            Navigator.of(ctx).pop(),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                            IconButton(
                               icon: const Icon(Icons.edit, color: Colors.green),
                               onPressed: () {
-                                // Navega para a tela de edição passando o movie
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -132,7 +197,6 @@ class HomeScreen extends StatelessWidget {
                             IconButton(
                               icon: const Icon(Icons.delete, color: Colors.red),
                               onPressed: () {
-                                // Navega para a tela de deleção passando o movie
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -156,7 +220,6 @@ class HomeScreen extends StatelessWidget {
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Navega para a tela de adicionar
           Navigator.push(
             context,
             MaterialPageRoute(builder: (ctx) => AddMovieScreen()),
