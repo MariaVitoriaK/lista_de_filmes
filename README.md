@@ -1,3 +1,5 @@
+- Repositório do GitHub -> https://github.com/MariaVitoriaK/lista_de_filmes
+
 # 🎬 Movie App — Trabalho Prático Flutter
 
 Este projeto foi desenvolvido como projeto final para a matéria de Desenvolvimento Mobile III, cujo objetivo é criar um aplicativo mobile utilizando **Flutter/Dart**.
