@@ -1,4 +1,3 @@
-// lib/screens/my_area_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/movie_provider.dart';
@@ -55,7 +54,6 @@ class MyAreaScreen extends StatelessWidget {
                       ),
               ),
 
-              // Nome e ações
               Padding(
                 padding: const EdgeInsets.all(6),
                 child: Column(
@@ -120,7 +118,7 @@ class MyAreaScreen extends StatelessWidget {
                         ),
                         const SizedBox(width: 6),
 
-                        // Info (abre dialog)
+                        // Info
                         SizedBox(
                           width: 36,
                           height: 36,

@@ -46,7 +46,7 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Carregar usuário logado no splash
+  // Carregar usuário
   Future<void> loadCurrentUser() async {
     final prefs = await SharedPreferences.getInstance();
     final email = prefs.getString('currentUserEmail');
@@ -61,18 +61,16 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  // Atualizar avatar do usuário
+  // Atualizar avatar
   Future<void> updateAvatar(String newAvatarUrl) async {
     if (_currentUser == null) return;
 
-    // atualiza o objeto em memória
     _currentUser = _currentUser!.copyWith(avatarUrl: newAvatarUrl);
 
     final prefs = await SharedPreferences.getInstance();
     final usersJson = prefs.getString('users') ?? '{}';
     final usersMap = jsonDecode(usersJson) as Map<String, dynamic>;
 
-    // atualiza no banco local
     usersMap[_currentUser!.email] = _currentUser!.toJson();
     await prefs.setString('users', jsonEncode(usersMap));
 

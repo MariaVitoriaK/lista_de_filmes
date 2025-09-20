@@ -43,7 +43,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             onPressed: () {
               auth.updateAvatar(_avatarController.text);
               Navigator.pop(ctx);
-              setState(() {}); // Atualiza a tela
+              setState(() {});
             },
             child: const Text("Salvar"),
           ),
@@ -110,7 +110,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             const SizedBox(height: 20),
 
-            // === Alternar Tema ===
+            // Tema
             const Text("Tema do Aplicativo"),
             SwitchListTile(
               title: Text(settings.isDarkMode ? "Modo Escuro" : "Modo Claro"),

@@ -1,4 +1,3 @@
-// lib/screens/add_movie_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/movie.dart';

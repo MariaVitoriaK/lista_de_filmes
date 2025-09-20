@@ -1,4 +1,3 @@
-// lib/screens/about_screen.dart
 import 'package:flutter/material.dart';
 import '../widgets/app_drawer.dart';
 
@@ -28,13 +27,11 @@ class AboutScreen extends StatelessWidget {
               "💡 Projeto feito para a disciplina de Desenvolvimento Mobile III.",
             ),
             const SizedBox(height: 20),
-            // Aqui começa a imagem do cachorro
             Center(
               child: Image.asset(
-                'assets/meu_cachorro.jpg', // coloque a imagem na pasta assets
+                'assets/meu_cachorro.jpg',
                 fit: BoxFit.cover,
-                width: double.infinity, // ocupa toda a largura
-                // height: 300, // opcional: define uma altura fixa
+                width: double.infinity,
               ),
             ),
           ],

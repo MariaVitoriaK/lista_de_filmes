@@ -1,4 +1,3 @@
-// lib/screens/home_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/movie_provider.dart';
@@ -92,7 +91,7 @@ class HomeScreen extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodyMedium,
                         ),
                         const SizedBox(height: 8),
-                        // Ações: favorito, quero assistir, editar, remover, info
+                        // favorito, quero assistir, editar, remover, info
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [

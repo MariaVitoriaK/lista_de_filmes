@@ -2,7 +2,7 @@ class Movie {
   final String id;
   String title;
   String director;
-  String genres; // vou deixar como string tratada
+  String genres;
   String description;
   String year;
   bool isFavorite;

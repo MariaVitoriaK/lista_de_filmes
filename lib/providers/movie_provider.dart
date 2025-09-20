@@ -27,7 +27,7 @@ class MovieProvider extends ChangeNotifier {
     }
   }
 
-  /// Adiciona um novo filme
+  /// Adiciona um filme
   Future<void> addMovie(Movie movie) async {
     try {
       final response = await http.post(
@@ -48,7 +48,7 @@ class MovieProvider extends ChangeNotifier {
     }
   }
 
-  /// Atualiza um filme existente (incluindo favoritos ou quero assistir)
+  /// Atualiza um filme
   Future<void> updateMovie(Movie movie) async {
     try {
       final response = await http.put(
@@ -86,7 +86,7 @@ class MovieProvider extends ChangeNotifier {
     }
   }
 
-  /// Alterna o favorito
+  /// favorito
   Future<void> toggleFavorite(String id) async {
     final index = _movies.indexWhere((m) => m.id == id);
     if (index != -1) {
@@ -96,7 +96,7 @@ class MovieProvider extends ChangeNotifier {
     }
   }
 
-  /// Alterna a lista Quero Assistir
+  /// Quero Assistir
   Future<void> toggleWantToWatch(String id) async {
     final index = _movies.indexWhere((m) => m.id == id);
     if (index != -1) {

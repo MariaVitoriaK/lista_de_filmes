@@ -1,4 +1,3 @@
-// lib/screens/register_screen.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
@@ -32,7 +31,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final success = await auth.register(newUser);
 
     if (success) {
-      Navigator.pop(context); // volta para login
+      Navigator.pop(context);
     } else {
       setState(() {
         _error = "Usuário já existe!";

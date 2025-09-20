@@ -1,15 +1,13 @@
-// lib/providers/settings_provider.dart
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsProvider extends ChangeNotifier {
-  Color _primaryColor = const Color.fromARGB(255, 68, 121, 165); // cor padrão
+  Color _primaryColor = const Color.fromARGB(255, 68, 121, 165);
   bool _isDarkMode = false; // tema padrão: claro
 
   Color get primaryColor => _primaryColor;
   bool get isDarkMode => _isDarkMode;
 
-  /// 🔹 Carregar configurações salvas
   Future<void> loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
 
@@ -25,7 +23,7 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// 🔹 Alterar cor primária
+  /// cor primária
   Future<void> setPrimaryColor(Color color) async {
     _primaryColor = color;
     final prefs = await SharedPreferences.getInstance();
@@ -33,7 +31,7 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// 🔹 Alterar tema (claro <-> escuro)
+  ///  Alterar tema
   Future<void> toggleTheme() async {
     _isDarkMode = !_isDarkMode;
     final prefs = await SharedPreferences.getInstance();
