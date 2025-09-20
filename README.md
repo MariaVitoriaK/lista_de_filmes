@@ -1,6 +1,8 @@
 # 🎬 Movie App — Trabalho Prático Flutter
 
-Este projeto foi desenvolvido como parte do **Trabalho Prático — Desenvolvimento Mobile 3 (Flutter)**, cujo objetivo é criar um aplicativo mobile utilizando **Flutter** que consome uma **API REST** e implementa funcionalidades de autenticação, cadastro, CRUD de recursos e integração com serviços externos.
+Este projeto foi desenvolvido como projeto final para a matéria de Desenvolvimento Mobile III, cujo objetivo é criar um aplicativo mobile utilizando **Flutter/Dart**.
+
+O tema do projeto escolhido foi sobre Filmes, com a opção de adicionar em Favoritos e Quero assistir. Como também ver, adicionar, editar e excluir cada filme.
 
 ---
 
@@ -15,12 +17,12 @@ Este projeto foi desenvolvido como parte do **Trabalho Prático — Desenvolvime
 ### 🖼 Splash Screen
 
 - Tela inicial exibida no carregamento do aplicativo.
-- Implementada através do `pubspec.yaml`, conforme instruções do professor.
+- Implementada através do `pubspec.yaml`.
 
 ### 🎥 CRUD de Recurso (Filmes)
 
 - Recurso escolhido: **Filmes**.
-- Integração com [MockAPI](https://mockapi.io/).
+- Integração com [MockAPI].
 - Funcionalidades:
   - **Listar** filmes (Home).
   - **Adicionar** novo filme.
@@ -29,21 +31,17 @@ Este projeto foi desenvolvido como parte do **Trabalho Prático — Desenvolvime
 
 ### ℹ️ Tela Sobre
 
-- Exibe informações sobre os desenvolvedores (nome, matrícula e curso).
+- Exibe informações sobre o desenvolvedor (nome, matrícula e curso).
 
 ### ⚙️ Tela de Configuração
 
 - Mostra informações do usuário logado.
 - Permite **alterar a cor primária do aplicativo (tema)**.
-- Implementação via `SettingsProvider`.
 
 ### 🗺 Tela com Google Maps
 
 - Integração com `google_maps_flutter`.
 - Exibe mapa centralizado na **Universidade de Passo Fundo (UPF)**.
-- Coordenadas:
-  - Latitude: **-28.232667**
-  - Longitude: **-52.381083**
 
 ---
 
