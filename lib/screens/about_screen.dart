@@ -10,22 +10,32 @@ class AboutScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text("Sobre")),
       drawer: const AppDrawer(),
-      body: const Padding(
-        padding: EdgeInsets.all(16),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "📚 Desenvolvedor:",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10),
-            Text(
+            const SizedBox(height: 10),
+            const Text(
               "👩 Maria Vitória Kuhn - Matrícula: 197960 - Curso: Análise e Desenvolvimento de Sistemas",
             ),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               "💡 Projeto feito para a disciplina de Desenvolvimento Mobile III.",
+            ),
+            const SizedBox(height: 20),
+            // Aqui começa a imagem do cachorro
+            Center(
+              child: Image.asset(
+                'assets/meu_cachorro.jpg', // coloque a imagem na pasta assets
+                fit: BoxFit.cover,
+                width: double.infinity, // ocupa toda a largura
+                // height: 300, // opcional: define uma altura fixa
+              ),
             ),
           ],
         ),
