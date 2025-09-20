@@ -53,6 +53,13 @@ class AppDrawer extends StatelessWidget {
               Navigator.pushReplacementNamed(context, '/about');
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.map),
+            title: const Text('Google Maps'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/map');
+            },
+          ),
         ],
       ),
     );
