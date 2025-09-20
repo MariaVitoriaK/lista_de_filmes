@@ -21,21 +21,27 @@ dependencies:
   google_maps: ^6.3.0
   google_maps_flutter: ^2.5.3
   google_maps_flutter_web: ^0.5.4+3
+  flutter_splash_screen: ^3.0.0
+  flutter_native_splash: ^2.4.6
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_native_splash: ^2.4.0
+  flutter_native_splash: ^2.4.6
 
   flutter_lints: ^5.0.0
 
 flutter_native_splash:
-  color: "#ffffff"
+  color: "#93c7ba"
   image: assets/logo.png
-  dark_color: "#000000"
-  dark_image: assets/logo.png
+  color_dark: "#2a3033"
+  image_dark: assets/logo-dark.png
+  web: true
+  android: false
+  ios: false
 
 flutter:
   uses-material-design: true
   assets:
     - assets/logo.png
+    - assets/logo-dark.png
